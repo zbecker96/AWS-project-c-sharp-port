@@ -20,11 +20,13 @@ namespace WindowsFormsApp2 {
             InitializeComponent();
         }
 
+
+        //get credentials from file i spend about 3 hours trying to use des to encrypt this but coudlnt have fun calling aws on my dollar
         public String[] getCredentials() {
             String[] credentials = { "", "" };
 
             //set up astream reader
-            StreamReader csvReader = new StreamReader("C:\\Users\\Zoe Becker\\Desktop\\accessKeys.csv");
+            StreamReader csvReader = new StreamReader(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "accessKeys.csv"));
             String data = csvReader.ReadLine();
             String[] splitData;
             
@@ -38,6 +40,7 @@ namespace WindowsFormsApp2 {
             return credentials;
         }
        
+        //gets login credentials for aws and uses them to get labels on an image
         public void processFile(Amazon.Rekognition.Model.Image imageData) {
 
             String[] loginCreds = getCredentials();
@@ -66,6 +69,7 @@ namespace WindowsFormsApp2 {
                     labels.AppendFormat("{0}: {1} \n", label.Name, label.Confidence);
 
                 }
+                //test if it is a hot dog or not
                 if (isHotdog) {
                     labels.Append("\n is a hotdog\n");
                 } else {
@@ -102,6 +106,7 @@ namespace WindowsFormsApp2 {
                         data = new byte[fs.Length];
                         fs.Read(data, 0, (int)fs.Length);
                         imgData.Bytes = new MemoryStream(data);
+
                     }
                 } catch (Exception) {
                     Console.WriteLine("Failed to load file " + newFile.FileName);
@@ -117,6 +122,14 @@ namespace WindowsFormsApp2 {
         private void LabelButton_Click(object sender, EventArgs e) {
 
             processFile(imgData);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e) {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+
         }
     }
 }
