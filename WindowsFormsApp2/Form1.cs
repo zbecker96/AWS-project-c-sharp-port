@@ -21,7 +21,7 @@ namespace WindowsFormsApp2 {
         }
 
 
-        //get credentials from file i spend about 3 hours trying to use des to encrypt this but coudlnt have fun calling aws on my dollar
+        //get credentials from file 
         public String[] getCredentials() {
             String[] credentials = { "", "" };
 
